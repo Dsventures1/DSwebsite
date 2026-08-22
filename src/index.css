@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+  
+  h1, h2, h3, h4, .font-heading {
+    font-family: 'Sora', 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+}
+
+/* Frosted Glass Design System */
+.frosted-glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.frosted-glass-hover:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45), 0 0 25px rgba(34, 211, 238, 0.2), inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.frosted-glass-pill {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.frosted-glass-input {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.frosted-glass-input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(34, 211, 238, 0.6);
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.cyan-glow-text {
+  text-shadow: 0 0 30px rgba(34, 211, 238, 0.45), 0 0 60px rgba(34, 211, 238, 0.2);
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.06); }
+}
+
+.animate-subtle-pulse {
+  animation: pulse-subtle 8s infinite ease-in-out;
+}
+
