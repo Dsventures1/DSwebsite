@@ -5,6 +5,7 @@ import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { Services } from './components/Services';
 import { WhyUs } from './components/WhyUs';
+import { ClinicalOutcomes } from './components/ClinicalOutcomes';
 import { Process } from './components/Process';
 import { GlobalPresence } from './components/GlobalPresence';
 import { PracticeCalculator } from './components/PracticeCalculator';
@@ -50,7 +51,10 @@ export default function App() {
         {/* 4. Why Choose Doctorstory */}
         <WhyUs />
 
-        {/* 5. How We Work / Process */}
+        {/* 5. Proven Clinical Growth Outcomes & Global Doctor Testimonials */}
+        <ClinicalOutcomes onOpenConsultation={handleOpenConsultation} />
+
+        {/* 6. How We Work / Process */}
         <Process onOpenConsultation={handleOpenConsultation} />
 
         {/* 6. Global Presence Strip */}
