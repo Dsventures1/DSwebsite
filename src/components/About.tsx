@@ -8,9 +8,10 @@ import {
   Video, 
   Award, 
   CheckCircle2, 
-  ArrowUpRight,
-  ImageIcon
+  TrendingUp,
+  Activity
 } from 'lucide-react';
+import doctorAiImage from '../assets/images/doctor_ai_growth_1787657981842.jpg';
 
 export const About: React.FC = () => {
   const pillars = [
@@ -71,7 +72,7 @@ export const About: React.FC = () => {
               </div>
               
               <p className="text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-                Doctorstory.in is where medicine meets modern marketing. We help doctors, clinics, hospitals, and diagnostic centres build powerful personal branding and attract patients while automating the busywork that slows healthcare practices down. From AI voice agents that never miss a patient inquiry to AI clone avatars that scale your presence across every platform, we combine healthcare expertise with cutting-edge technology. Our mission is simple: give clinical leaders the online authority they deserve, and the systems to support it — 24/7.
+                <strong className="font-bold text-white">Doctorstory.in</strong> is where medicine meets modern marketing. We help doctors, clinics, hospitals, and diagnostic centres build powerful personal branding and attract patients while automating the busywork that slows healthcare practices down. From AI voice agents that never miss a patient inquiry to AI clone avatars that scale your presence across every platform, we combine healthcare expertise with cutting-edge technology. Our mission is simple: give clinical leaders the online authority they deserve, and the systems to support it — 24/7.
               </p>
             </div>
 
@@ -99,7 +100,7 @@ export const About: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Right Column: Visual Showcase with clearly labeled placeholder slot */}
+          {/* Right Column: Visual Clinical Authority & Automation Showcase */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -107,50 +108,51 @@ export const About: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="lg:col-span-5"
           >
-            <div className="relative rounded-2xl bg-white/[0.08] p-5 border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] backdrop-blur-2xl">
-              {/* Doctor / Tech Visual Slot (Clean placeholder image slot clearly marked for easy replacement) */}
-              <div 
-                id="about-visual-placeholder-slot"
-                className="relative w-full h-80 rounded-xl overflow-hidden bg-black/30 border border-dashed border-white/30 flex flex-col items-center justify-center p-6 text-center group backdrop-blur-md"
-              >
-                {/* Abstract visual art layer */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 via-blue-500/15 to-indigo-500/20" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(34,211,238,0.2),transparent_60%)]" />
+            <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-white/[0.12] to-white/[0.05] p-2.5 sm:p-3 border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.25)] backdrop-blur-2xl group">
+              {/* Image Frame Container */}
+              <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-2xl">
+                <img 
+                  src={doctorAiImage} 
+                  alt="Doctorstory.in AI Healthcare Technology & Clinical Authority" 
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                
+                {/* Ambient Gradient Overlays for High Contrast & Visual Integration */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-black/20" />
+                <div className="absolute inset-0 ring-1 ring-inset ring-white/20 rounded-xl pointer-events-none" />
 
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className="w-16 h-16 rounded-2xl bg-white/15 border border-white/25 flex items-center justify-center text-cyan-300 mb-3 shadow-[0_0_25px_rgba(34,211,238,0.3)] backdrop-blur-md">
-                    <Stethoscope className="w-8 h-8 text-cyan-300 animate-pulse" />
-                  </div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-cyan-300 mb-1 flex items-center gap-1.5">
-                    <ImageIcon className="w-3.5 h-3.5" />
-                    Doctor & Clinic Imagery Slot
-                  </span>
-                  <p className="text-xs text-slate-200 max-w-xs mb-3">
-                    [Swap in high-resolution doctor/hospital photography or custom clinical branding visuals here]
-                  </p>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[11px] text-cyan-200">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />
-                    Doctorstory Brand Authority System
-                  </div>
+                {/* Top Floating Badge: Live Sync */}
+                <div className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/80 border border-white/25 text-[11px] font-semibold text-emerald-300 backdrop-blur-xl shadow-lg">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                  24/7 AI Active
                 </div>
 
-                {/* Floating badge inside visual */}
-                <div className="absolute bottom-3 left-3 right-3 bg-white/10 backdrop-blur-xl rounded-xl p-3 border border-white/20 flex items-center justify-between text-xs z-20 shadow-lg">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                    <span className="text-slate-200 font-medium">99.4% Patient Trust Score</span>
-                  </div>
-                  <span className="text-cyan-300 font-bold">Verified ROI</span>
+                {/* Top Left Tag: Clinical Category */}
+                <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/80 border border-white/25 text-[11px] font-semibold text-cyan-300 backdrop-blur-xl shadow-lg">
+                  <Stethoscope className="w-3.5 h-3.5 text-cyan-400" />
+                  Clinical Authority
                 </div>
-              </div>
 
-              {/* Bottom Authority Metric Bar */}
-              <div className="mt-4 pt-3 border-t border-white/15 flex items-center justify-between text-xs text-slate-300">
-                <span className="flex items-center gap-1 text-slate-200 font-medium">
-                  <Award className="w-4 h-4 text-cyan-400" />
-                  International Standards
-                </span>
-                <span className="text-cyan-300 font-semibold">India · UAE · USA · UK</span>
+                {/* Bottom Overlay Card */}
+                <div className="absolute bottom-3 left-3 right-3 bg-slate-950/85 backdrop-blur-xl rounded-xl p-3 sm:p-3.5 border border-white/20 shadow-xl">
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping shrink-0" />
+                      <span className="text-xs sm:text-sm font-bold text-white truncate">Specialist Medical Practice</span>
+                    </div>
+                    <span className="text-[10px] sm:text-[11px] font-bold text-cyan-300 bg-cyan-950/90 px-2 py-0.5 rounded border border-cyan-400/30 shrink-0">
+                      99.4% Trust Score
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-[11px] text-slate-300 pt-1.5 border-t border-white/10">
+                    <span className="flex items-center gap-1 text-slate-200">
+                      <Award className="w-3.5 h-3.5 text-cyan-400" />
+                      HIPAA · NABH · DHA · GMC
+                    </span>
+                    <span className="text-cyan-300 font-semibold font-mono">10+ Countries</span>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
