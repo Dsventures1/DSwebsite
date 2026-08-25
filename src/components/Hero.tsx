@@ -146,28 +146,30 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="lg:col-span-5 relative"
           >
-            <div className="relative rounded-2xl bg-white/[0.08] p-6 border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.25)] backdrop-blur-2xl">
+            <div className="relative rounded-2xl bg-white/[0.08] p-4 sm:p-6 border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.25)] backdrop-blur-2xl">
               {/* Header Bar */}
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/15">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-rose-500/80 shadow-sm" />
-                  <div className="w-3 h-3 rounded-full bg-amber-500/80 shadow-sm" />
-                  <div className="w-3 h-3 rounded-full bg-emerald-500/80 shadow-sm" />
-                  <span className="text-xs font-medium text-slate-300 ml-2">Doctorstory AI Automation Engine</span>
+              <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-white/15">
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80 shadow-sm" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80 shadow-sm" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 shadow-sm" />
+                  </div>
+                  <span className="text-[11px] sm:text-xs font-medium text-slate-300 truncate ml-1">Doctorstory AI Automation Engine</span>
                 </div>
-                <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-cyan-300 bg-white/10 px-2.5 py-0.5 rounded-full border border-white/20 backdrop-blur-md">
+                <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold text-cyan-300 bg-white/10 px-2 sm:px-2.5 py-0.5 rounded-full border border-white/20 backdrop-blur-md shrink-0">
                   <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
                   Live Sync
                 </span>
               </div>
 
               {/* Selector Tabs */}
-              <div className="grid grid-cols-3 gap-2 mb-4">
+              <div className="grid grid-cols-3 gap-1.5 sm:gap-2 mb-3.5">
                 {heroShowcaseCards.map((card, idx) => (
                   <button
                     key={card.title}
                     onClick={() => setActiveTab(idx)}
-                    className={`text-xs py-2 px-2.5 rounded-xl text-center font-medium transition-all ${
+                    className={`text-[11px] sm:text-xs py-2 px-1.5 sm:px-2.5 rounded-xl text-center font-medium transition-all ${
                       activeTab === idx
                         ? 'bg-cyan-400/25 text-white border border-cyan-400/60 shadow-[0_0_15px_rgba(34,211,238,0.25)] backdrop-blur-md'
                         : 'bg-white/[0.06] text-slate-300 border border-white/10 hover:bg-white/10 hover:text-white backdrop-blur-sm'
@@ -183,41 +185,47 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
                 const current = heroShowcaseCards[activeTab];
                 const IconComponent = current.icon;
                 return (
-                  <div className="bg-white/[0.07] rounded-xl p-5 border border-white/15 backdrop-blur-xl relative overflow-hidden shadow-inner">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2.5 rounded-xl bg-white/10 border border-white/20 text-cyan-300 shadow-sm">
-                          <IconComponent className="w-6 h-6" />
+                  <div className="bg-white/[0.07] rounded-xl p-4 sm:p-5 border border-white/15 backdrop-blur-xl relative overflow-hidden shadow-inner">
+                    {/* Header: Icon + Category + Badge + Title with perfect responsive mobile spacing */}
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
+                      <div className="flex items-start gap-3 w-full sm:w-auto">
+                        <div className="p-2 sm:p-2.5 rounded-xl bg-white/10 border border-white/20 text-cyan-300 shadow-sm shrink-0">
+                          <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" />
                         </div>
-                        <div>
-                          <div className="text-xs uppercase tracking-wider text-cyan-300 font-bold">{current.badge}</div>
-                          <h3 className="text-base font-bold text-white">{current.title}</h3>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between sm:block gap-2 mb-0.5">
+                            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-cyan-300 font-bold">{current.badge}</span>
+                            <span className="sm:hidden text-[10px] font-extrabold text-emerald-300 bg-emerald-950/70 px-2 py-0.5 rounded-md border border-emerald-400/30 shrink-0 whitespace-nowrap">
+                              {current.highlight}
+                            </span>
+                          </div>
+                          <h3 className="text-sm sm:text-base font-bold text-white leading-snug">{current.title}</h3>
                         </div>
                       </div>
-                      <span className="text-xs font-extrabold text-emerald-300 bg-emerald-950/60 px-2.5 py-1 rounded-lg border border-emerald-400/30">
+                      <span className="hidden sm:inline-block text-xs font-extrabold text-emerald-300 bg-emerald-950/60 px-2.5 py-1 rounded-lg border border-emerald-400/30 shrink-0 whitespace-nowrap">
                         {current.highlight}
                       </span>
                     </div>
 
-                    <p className="text-xs text-slate-200 leading-relaxed mb-4 font-normal">
+                    <p className="text-xs text-slate-200 leading-relaxed mb-3.5 font-normal">
                       {current.desc}
                     </p>
 
                     {/* Live Activity Simulation */}
-                    <div className="bg-black/25 rounded-xl p-3.5 border border-white/10 backdrop-blur-md text-[11px] space-y-2">
-                      <div className="flex items-center justify-between text-slate-300">
-                        <span className="flex items-center gap-1.5">
-                          <Clock className="w-3.5 h-3.5 text-cyan-400" />
+                    <div className="bg-black/30 rounded-xl p-3 sm:p-3.5 border border-white/10 backdrop-blur-md text-[11px] space-y-2">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-slate-300">
+                        <span className="flex items-center gap-1.5 text-slate-300">
+                          <Clock className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
                           System Health
                         </span>
-                        <span className="text-cyan-300 font-mono">{current.status}</span>
+                        <span className="text-cyan-300 font-mono text-[10px] sm:text-[11px] sm:text-right">{current.status}</span>
                       </div>
-                      <div className="flex items-center justify-between text-slate-200 font-medium">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-slate-200 font-medium border-t border-white/10 pt-1.5 sm:pt-0 sm:border-0">
                         <span className="flex items-center gap-1.5 text-emerald-400">
-                          <CheckCircle2 className="w-3.5 h-3.5" />
+                          <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
                           Automation Status
                         </span>
-                        <span className="text-white font-semibold">{current.stat}</span>
+                        <span className="text-white font-semibold text-[10px] sm:text-[11px] sm:text-right">{current.stat}</span>
                       </div>
                     </div>
                   </div>
@@ -225,12 +233,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
               })()}
 
               {/* Bottom Notification Capsule */}
-              <div className="mt-4 flex items-center justify-between text-xs text-slate-300 px-2">
-                <span className="flex items-center gap-1.5">
-                  <Activity className="w-3.5 h-3.5 text-cyan-400" />
-                  Real-time patient intake pipeline
+              <div className="mt-3.5 flex items-center justify-between text-[10px] sm:text-xs text-slate-300 px-1">
+                <span className="flex items-center gap-1.5 truncate">
+                  <Activity className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                  <span className="truncate">Real-time patient intake pipeline</span>
                 </span>
-                <span className="text-slate-200 font-semibold">Doctorstory.in v4.2</span>
+                <span className="text-slate-200 font-semibold shrink-0 ml-2">Doctorstory.in v4.2</span>
               </div>
             </div>
           </motion.div>
