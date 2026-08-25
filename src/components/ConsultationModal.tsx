@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   X, 
@@ -110,8 +111,6 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, on
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   const isAllSelected = selectedGoals.length === GROWTH_GOAL_OPTIONS.length;
 
   const handleToggleAllGoals = () => {
@@ -146,18 +145,21 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, on
     onClose();
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-slate-950/85 backdrop-blur-md">
-      {/* Background click to close */}
-      <div className="absolute inset-0" onClick={handleResetAndClose} />
+  if (!isOpen || typeof document === 'undefined') return null;
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 15 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 15 }}
-        transition={{ duration: 0.2 }}
-        className="relative z-10 w-full max-w-xl max-h-[92vh] flex flex-col bg-[#071333] border border-cyan-400/25 rounded-2xl sm:rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.85)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-2xl text-left overflow-hidden"
-      >
+  return createPortal(
+    <AnimatePresence>
+      <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-5 md:p-6 bg-slate-950/85 backdrop-blur-md">
+        {/* Background click to close */}
+        <div className="absolute inset-0" onClick={handleResetAndClose} />
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: 15 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: 15 }}
+          transition={{ duration: 0.2 }}
+          className="relative z-10 w-full max-w-xl max-h-[90vh] flex flex-col bg-[#071333] border border-cyan-400/25 rounded-2xl sm:rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.85)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-2xl text-left overflow-hidden my-auto"
+        >
         {/* Header Bar */}
         <div className="flex items-center justify-between px-5 sm:px-7 pt-4 sm:pt-5 pb-3 border-b border-white/10 shrink-0 bg-white/[0.02]">
           <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-400/10 border border-cyan-400/30 text-cyan-300 text-[11px] font-semibold tracking-wide shadow-[0_0_10px_rgba(34,211,238,0.15)]">
@@ -494,5 +496,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, on
         </div>
       </motion.div>
     </div>
+    </AnimatePresence>,
+    document.body
   );
 };

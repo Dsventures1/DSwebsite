@@ -45,7 +45,7 @@ export const Contact: React.FC = () => {
     customCountry: '',
     specialty: 'Dental & Orthodontics / Implantology',
     customSpecialty: '',
-    servicesInterested: ['AI Voice Agent for Clinics', 'Social Media Ads'],
+    servicesInterested: ['AI Voice Agents', 'Social Media Ads'],
     message: ''
   });
 
@@ -77,7 +77,7 @@ export const Contact: React.FC = () => {
   ];
 
   const availableServices = [
-    'AI Voice Agent for Clinics',
+    'AI Voice Agents',
     'AI Clone Avatar',
     'Google My Business Optimization',
     'Social Media Management',

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   MapPin, 
@@ -28,6 +29,18 @@ interface ServicesProps {
 export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
   const [voiceSimulatorPlaying, setVoiceSimulatorPlaying] = useState(false);
+
+  // Lock background scroll when modal is active
+  useEffect(() => {
+    if (selectedService) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedService]);
 
   const servicesData: ServiceItem[] = [
     {
@@ -107,7 +120,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
     },
     {
       id: 'ai-voice-agent',
-      title: 'AI Voice Agent for Clinics',
+      title: 'AI Voice Agents',
       shortDesc: 'A 24/7 AI receptionist that answers calls, books appointments, and follows up so you never lose a patient to a missed call.',
       fullDesc: 'Never lose a patient to an engaged tone or after-hours call again. Our AI Voice Receptionist sounds completely natural, understands medical terminology, answers clinic FAQs, verifies doctor slots, and confirms bookings instantly.',
       iconName: 'PhoneCall',
@@ -148,15 +161,15 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 border border-white/20 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-3 backdrop-blur-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Comprehensive Healthcare Growth Suite</span>
+        <div className="flex flex-col items-center text-center mb-14 sm:mb-16">
+          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 sm:px-3.5 sm:py-1 rounded-full bg-white/10 border border-white/20 text-cyan-300 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-3 backdrop-blur-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] max-w-[90vw]">
+            <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-cyan-400 shrink-0" />
+            <span className="truncate sm:whitespace-normal">Comprehensive Healthcare Growth Suite</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-heading max-w-3xl">
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight font-heading max-w-3xl">
             Our Core Services
           </h2>
-          <p className="text-base text-slate-200 max-w-2xl mt-4">
+          <p className="text-sm sm:text-base text-slate-200 max-w-2xl mt-3 sm:mt-4 leading-relaxed">
             Engineered exclusively for independent doctors, multi-specialty clinics, and hospitals looking for unfair authority and frictionless automation.
           </p>
           <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mt-4" />
@@ -206,18 +219,20 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
               </div>
 
               {/* Action Link & Learn More trigger */}
-              <div className="pt-4 border-t border-white/15 flex items-center justify-between">
+              <div className="pt-4 border-t border-white/15 flex items-center justify-between gap-2 mt-auto">
                 <button
+                  type="button"
                   onClick={() => setSelectedService(service)}
-                  className="text-xs font-bold text-cyan-300 hover:text-white inline-flex items-center gap-1.5 transition-colors group-hover:translate-x-0.5"
+                  className="text-xs font-bold text-cyan-300 hover:text-white inline-flex items-center gap-1.5 transition-colors group-hover:translate-x-0.5 py-1"
                 >
                   <span>Explore Deep Features</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-3.5 h-3.5 text-cyan-400" />
                 </button>
 
                 <button
+                  type="button"
                   onClick={onOpenConsultation}
-                  className="text-xs font-medium text-slate-300 hover:text-white transition-colors"
+                  className="text-xs font-semibold px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-slate-200 hover:text-white transition-all shrink-0"
                 >
                   Book Demo
                 </button>
@@ -227,107 +242,137 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
         </div>
       </div>
 
-      {/* Service Detail Interactive Modal / Deep Dive */}
-      <AnimatePresence>
-        {selectedService && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0A1541]/70 backdrop-blur-xl">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-2xl bg-[#0B184A]/90 border border-white/20 rounded-2xl p-6 sm:p-8 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.25)] backdrop-blur-2xl text-left overflow-hidden"
-            >
-              {/* Close Button */}
-              <button
+      {/* Service Detail Interactive Modal / Deep Dive rendered into document.body */}
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {selectedService && (
+            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-5 md:p-6 bg-slate-950/85 backdrop-blur-md">
+              {/* Background Click to Dismiss */}
+              <div 
+                className="absolute inset-0" 
                 onClick={() => {
                   setSelectedService(null);
                   setVoiceSimulatorPlaying(false);
-                }}
-                className="absolute top-5 right-5 p-2 rounded-xl bg-white/10 border border-white/20 text-slate-300 hover:text-white hover:bg-white/20 transition-colors backdrop-blur-md"
+                }} 
+              />
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 15 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 15 }}
+                transition={{ duration: 0.2 }}
+                className="relative z-10 w-full max-w-xl max-h-[88vh] flex flex-col bg-[#071333] border border-cyan-400/30 rounded-2xl sm:rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.85)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] backdrop-blur-2xl text-left overflow-hidden my-auto"
               >
-                <X className="w-5 h-5" />
-              </button>
-
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-3 rounded-xl bg-white/10 text-cyan-300 border border-white/20 shadow-md backdrop-blur-md">
-                  {getIcon(selectedService.iconName)}
-                </div>
-                <div>
-                  <span className="text-xs font-bold text-cyan-300 uppercase tracking-wider">{selectedService.tag}</span>
-                  <h3 className="text-2xl font-bold text-white font-heading">{selectedService.title}</h3>
-                </div>
-              </div>
-
-              <p className="text-sm sm:text-base text-slate-200 leading-relaxed mb-6">
-                {selectedService.fullDesc}
-              </p>
-
-              {/* Special interactive simulator for AI Voice or AI Clone */}
-              {selectedService.id === 'ai-voice-agent' && (
-                <div className="p-4 rounded-xl bg-black/25 border border-white/15 backdrop-blur-md mb-6">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-bold text-cyan-300 flex items-center gap-1.5">
-                      <Volume2 className="w-4 h-4 text-cyan-400" />
-                      Live AI Receptionist Audio Simulation
-                    </span>
-                    <span className="text-[10px] text-emerald-300 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-400/30">
-                      Simulated Voice Stream
-                    </span>
+                {/* Modal Top Header Bar */}
+                <div className="flex items-center justify-between px-5 sm:px-7 pt-4 sm:pt-5 pb-3.5 border-b border-white/10 shrink-0 bg-white/[0.02]">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="p-2 sm:p-2.5 rounded-xl bg-cyan-400/15 text-cyan-300 border border-cyan-400/30 shadow-md backdrop-blur-md shrink-0">
+                      {getIcon(selectedService.iconName)}
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-[10px] sm:text-xs font-bold text-cyan-300 uppercase tracking-wider block">
+                        {selectedService.tag}
+                      </span>
+                      <h3 className="text-base sm:text-xl font-bold text-white font-heading truncate">
+                        {selectedService.title}
+                      </h3>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3 bg-white/[0.08] p-3 rounded-xl border border-white/15 backdrop-blur-md">
-                    <button
-                      onClick={() => setVoiceSimulatorPlaying(!voiceSimulatorPlaying)}
-                      className="p-2.5 rounded-full bg-cyan-400 text-slate-950 hover:bg-cyan-300 transition-all shadow-md"
-                    >
-                      {voiceSimulatorPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 fill-current" />}
-                    </button>
-                    <div className="flex-1 text-xs text-slate-200">
-                      {voiceSimulatorPlaying ? (
-                        <span className="text-cyan-300 italic animate-pulse">
-                          "Hello! Thank you for calling Dr. Sharma's Orthopedic Clinic. I can schedule your consultation or answer inquiries. What time suits you best?"
+
+                  {/* Close Button */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedService(null);
+                      setVoiceSimulatorPlaying(false);
+                    }}
+                    className="p-1.5 sm:p-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-slate-300 hover:text-white transition-colors backdrop-blur-md shrink-0 ml-3 cursor-pointer"
+                    aria-label="Close modal"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* Modal Scrollable Body */}
+                <div className="overflow-y-auto flex-1 p-5 sm:p-7 space-y-5 custom-scrollbar">
+                  <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-normal">
+                    {selectedService.fullDesc}
+                  </p>
+
+                  {/* Special interactive simulator for AI Voice or AI Clone */}
+                  {selectedService.id === 'ai-voice-agent' && (
+                    <div className="p-4 rounded-xl bg-black/40 border border-cyan-400/25 backdrop-blur-md">
+                      <div className="flex items-center justify-between mb-2 gap-2 flex-wrap">
+                        <span className="text-xs font-bold text-cyan-300 flex items-center gap-1.5">
+                          <Volume2 className="w-4 h-4 text-cyan-400" />
+                          Live AI Receptionist Audio Simulation
                         </span>
-                      ) : (
-                        <span className="text-slate-300">Click play to preview human-like conversational medical receptionist response.</span>
-                      )}
+                        <span className="text-[10px] text-emerald-300 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-400/30 font-medium">
+                          Simulated Stream
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3 bg-white/[0.08] p-3 rounded-xl border border-white/15 backdrop-blur-md">
+                        <button
+                          type="button"
+                          onClick={() => setVoiceSimulatorPlaying(!voiceSimulatorPlaying)}
+                          className="p-2.5 rounded-full bg-cyan-400 text-slate-950 hover:bg-cyan-300 transition-all shadow-md shrink-0 cursor-pointer"
+                        >
+                          {voiceSimulatorPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 fill-current" />}
+                        </button>
+                        <div className="flex-1 text-xs text-slate-200">
+                          {voiceSimulatorPlaying ? (
+                            <span className="text-cyan-300 italic animate-pulse">
+                              "Hello! Thank you for calling Dr. Sharma's Clinic. I can schedule your consultation or answer inquiries. What day works best for you?"
+                            </span>
+                          ) : (
+                            <span className="text-slate-300">Click play to preview natural conversational medical receptionist response.</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Included Implementation Highlights */}
+                  <div>
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-cyan-300 mb-3 flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                      Included in this deployment:
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {selectedService.features.map((feat, idx) => (
+                        <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-200 bg-white/[0.03] p-2.5 rounded-xl border border-white/10">
+                          <div className="p-1 rounded-full bg-cyan-400/20 text-cyan-300 border border-cyan-400/30 shrink-0 mt-0.5">
+                            <Check className="w-3 h-3" />
+                          </div>
+                          <span className="leading-snug">{feat}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
-              )}
 
-              {/* Included Implementation Highlights */}
-              <div className="mb-6">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">Included in this deployment:</h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {selectedService.features.map((feat, idx) => (
-                    <div key={idx} className="flex items-start gap-2 text-xs text-slate-200">
-                      <div className="p-0.5 rounded-full bg-cyan-400/20 text-cyan-300 border border-cyan-400/30 shrink-0 mt-0.5">
-                        <Check className="w-3 h-3" />
-                      </div>
-                      <span>{feat}</span>
-                    </div>
-                  ))}
+                {/* Bottom Sticky Action Footer */}
+                <div className="p-4 sm:px-7 sm:py-4 border-t border-white/15 bg-slate-950/80 backdrop-blur-xl shrink-0 flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <div className="text-xs text-slate-300 text-center sm:text-left">
+                    Ready to deploy in your clinic in <span className="text-cyan-300 font-bold">under 5 business days</span>.
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedService(null);
+                      onOpenConsultation();
+                    }}
+                    className="w-full sm:w-auto px-6 py-3 rounded-full bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25 text-center cursor-pointer"
+                  >
+                    Book Strategy For This Service
+                  </button>
                 </div>
-              </div>
-
-              {/* Bottom Actions */}
-              <div className="pt-4 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="text-xs text-slate-300">
-                  Ready to deploy in your clinic in <span className="text-cyan-300 font-semibold">under 5 business days</span>.
-                </div>
-                <button
-                  onClick={() => {
-                    setSelectedService(null);
-                    onOpenConsultation();
-                  }}
-                  className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25"
-                >
-                  Book Strategy For This Service
-                </button>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 };
