@@ -94,7 +94,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
               <span className="bg-gradient-to-r from-cyan-300 via-sky-200 to-blue-400 bg-clip-text text-transparent cyan-glow-text inline-block">
                 Next-Gen AI
               </span>{' '}
-              &amp; Personal Branding
+              &amp; Personal Branding.
             </h1>
 
             {/* Clear Subhead */}
