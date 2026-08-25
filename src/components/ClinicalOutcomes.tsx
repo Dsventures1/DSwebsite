@@ -4,18 +4,11 @@ import {
   Star, 
   Sparkles, 
   CheckCircle2, 
-  TrendingUp, 
-  PhoneCall, 
-  Video, 
-  Search, 
-  Quote, 
-  Building, 
-  Award,
-  Zap,
-  Globe2,
-  CalendarCheck,
-  ShieldCheck
+  CalendarCheck
 } from 'lucide-react';
+import doctorSeniorDirectorImg from '../assets/images/doctor_senior_director_1787665239253.jpg';
+import doctorConsultantImg from '../assets/images/doctor_consultant_portrait_1787665259123.jpg';
+import doctorFemaleHeadshotImg from '../assets/images/doctor_female_headshot_1787665278831.jpg';
 
 interface TestimonialItem {
   id: string;
@@ -56,7 +49,7 @@ export const ClinicalOutcomes: React.FC<ClinicalOutcomesProps> = ({ onOpenConsul
       rating: 5,
       headline: '"Recovered 40+ high-ticket aesthetic bookings every month"',
       quote: '"Before DoctorStory, our reception missed dozens of calls during peak consultation hours and late evenings. The 24/7 AI Voice Receptionist now answers immediately, understands patient concerns, and slots them directly into my calendar. It has paid for itself 10x over."',
-      avatarUrl: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=256&h=256&q=80',
+      avatarUrl: doctorFemaleHeadshotImg,
       metricType: 'AI Voice Receptionist',
       verified: true
     },
@@ -73,7 +66,7 @@ export const ClinicalOutcomes: React.FC<ClinicalOutcomesProps> = ({ onOpenConsul
       rating: 5,
       headline: '"The AI clone reels scaled my personal brand across Europe"',
       quote: '"I used to spend full weekends filming educational videos. With DoctorStory AI Avatar cloning, I recorded for 45 minutes once, and their team produces 20 pristine, compliant clinical reels every month. We dominate local dental search."',
-      avatarUrl: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=256&h=256&q=80',
+      avatarUrl: doctorConsultantImg,
       metricType: 'Doctor AI Clone Studio',
       verified: true
     },
@@ -83,14 +76,14 @@ export const ClinicalOutcomes: React.FC<ClinicalOutcomesProps> = ({ onOpenConsul
       credentials: 'FRCS (Orth), FAAOS',
       role: 'Senior Orthopedic Surgeon',
       clinic: 'Al Mansoor Spine & Joint Center',
-      location: 'Abu Dhabi (UAE)',
+      location: 'Abu Dhabi & Mumbai',
       specialtyTag: 'Orthopedics & Spine',
       outcomeBadge: 'Zero Missed Patient Leads',
       outcomeBadgeColor: 'teal',
       rating: 5,
       headline: '"#1 in Google Local 3-Pack for joint replacement in 60 days"',
       quote: '"Their Medical SEO and schema implementation propelled our clinic to the top 3 spots across UAE. Patient trust is immediate because of our streamlined digital booking and rapid WhatsApp response."',
-      avatarUrl: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=256&h=256&q=80',
+      avatarUrl: doctorSeniorDirectorImg,
       metricType: 'Medical SEO & Fast Booking',
       verified: true
     }
@@ -99,33 +92,6 @@ export const ClinicalOutcomes: React.FC<ClinicalOutcomesProps> = ({ onOpenConsul
   const filteredTestimonials = selectedFilter === 'all' 
     ? testimonials 
     : testimonials.filter(t => t.id === selectedFilter);
-
-  const stats = [
-    {
-      value: '85,000+',
-      label: 'Patient Appointments Automated',
-      color: 'text-cyan-300',
-      sublabel: 'Across voice & web funnels'
-    },
-    {
-      value: '99.4%',
-      label: 'Call Capture Reliability',
-      color: 'text-emerald-400',
-      sublabel: 'Zero unanswered inquiries'
-    },
-    {
-      value: '10+',
-      label: 'International Countries Active',
-      color: 'text-cyan-300',
-      sublabel: 'India, UAE, UK, US, CA, AU, EU+'
-    },
-    {
-      value: '<400ms',
-      label: 'AI Voice Telephony Latency',
-      color: 'text-cyan-300',
-      sublabel: 'Natural human conversation'
-    }
-  ];
 
   return (
     <section id="results" className="py-24 relative overflow-hidden">
@@ -260,41 +226,12 @@ export const ClinicalOutcomes: React.FC<ClinicalOutcomesProps> = ({ onOpenConsul
           })}
         </div>
 
-        {/* Bottom Dark Navy / Midnight Blue Impact Stats Banner */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="relative rounded-2xl sm:rounded-3xl bg-[#060D2A]/90 border border-white/15 hover:border-cyan-400/30 backdrop-blur-2xl p-6 sm:p-8 lg:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] overflow-hidden"
-        >
-          {/* Subtle Ambient Interior Glows */}
-          <div className="absolute top-0 left-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
-            {stats.map((stat, idx) => (
-              <div 
-                key={stat.label}
-                className={`flex flex-col items-center text-center ${idx !== 0 ? 'sm:pl-6 lg:pl-8' : ''} ${idx !== 0 ? 'pt-5 sm:pt-0' : ''}`}
-              >
-                <div className={`text-3xl sm:text-4xl lg:text-[40px] font-extrabold font-heading tracking-tight mb-1.5 ${stat.color} drop-shadow-[0_0_20px_rgba(34,211,238,0.25)]`}>
-                  {stat.value}
-                </div>
-                <div className="text-xs sm:text-sm font-medium text-slate-200 max-w-[200px] leading-snug">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
         {/* Action Button Strip below Testimonials */}
         {onOpenConsultation && (
-          <div className="mt-12 text-center">
+          <div className="text-center">
             <button
               onClick={onOpenConsultation}
-              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-950 bg-cyan-400 hover:bg-cyan-300 shadow-[0_0_25px_rgba(34,211,238,0.4)] hover:shadow-[0_0_35px_rgba(34,211,238,0.6)] transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-950 bg-cyan-400 hover:bg-cyan-300 shadow-[0_0_25px_rgba(34,211,238,0.4)] hover:shadow-[0_0_35px_rgba(34,211,238,0.6)] transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
             >
               <CalendarCheck className="w-4 h-4 text-slate-950" />
               <span>Get Similar Results For Your Practice</span>
