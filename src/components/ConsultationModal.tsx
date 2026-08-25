@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { 
   X, 
   Calendar, 
-  Clock, 
   Sparkles, 
   CheckCircle2, 
   ShieldCheck, 
-  User, 
-  Mail, 
-  Phone, 
-  Building2,
-  Globe2,
-  Stethoscope
+  CheckSquare,
+  Square
 } from 'lucide-react';
 
 interface ConsultationModalProps {
@@ -20,8 +15,18 @@ interface ConsultationModalProps {
   onClose: () => void;
 }
 
+const GROWTH_GOAL_OPTIONS = [
+  '24/7 AI Voice Receptionist (Zero Missed Calls)',
+  'Doctor AI Video Clone + Social Content',
+  'Google My Business & Local 3-Pack Growth',
+  'Targeted Patient Acquisition Ads'
+];
+
 export const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, onClose }) => {
   const [step, setStep] = useState<1 | 2>(1);
+  const [selectedGoals, setSelectedGoals] = useState<string[]>([
+    '24/7 AI Voice Receptionist (Zero Missed Calls)'
+  ]);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -29,13 +34,30 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, on
     practice: '',
     country: 'India',
     specialty: 'Dental / Aesthetics',
-    preferredTime: 'Morning (9 AM - 12 PM)',
-    primaryGoal: '24/7 AI Voice Receptionist + Patient Acquisition'
+    marketingStatus: 'No, haven\'t done marketing yet (Starting fresh)',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
   if (!isOpen) return null;
+
+  const isAllSelected = selectedGoals.length === GROWTH_GOAL_OPTIONS.length;
+
+  const handleToggleAllGoals = () => {
+    if (isAllSelected) {
+      setSelectedGoals([]);
+    } else {
+      setSelectedGoals([...GROWTH_GOAL_OPTIONS]);
+    }
+  };
+
+  const handleToggleGoal = (goal: string) => {
+    if (selectedGoals.includes(goal)) {
+      setSelectedGoals(selectedGoals.filter(g => g !== goal));
+    } else {
+      setSelectedGoals([...selectedGoals, goal]);
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,8 +101,13 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, on
               We have reserved a priority discovery slot for <span className="text-cyan-300 font-semibold">{formData.name}</span> ({formData.practice || 'Your Practice'}). A confirmation calendar invite has been sent to <span className="text-white font-medium">{formData.email}</span>.
             </p>
             <div className="p-4 rounded-2xl bg-white/[0.06] border border-white/15 text-xs text-slate-200 w-full mb-6 text-left space-y-1.5 backdrop-blur-md shadow-sm">
-              <div><strong className="text-cyan-300">Selected Time Window:</strong> {formData.preferredTime}</div>
-              <div><strong className="text-cyan-300">Target Focus:</strong> {formData.primaryGoal}</div>
+              <div><strong className="text-cyan-300">Prior Marketing:</strong> {formData.marketingStatus}</div>
+              <div>
+                <strong className="text-cyan-300">Selected Goals:</strong>{' '}
+                {selectedGoals.length === GROWTH_GOAL_OPTIONS.length
+                  ? 'All Services / Full-Stack Practice Transformation'
+                  : selectedGoals.join(', ') || 'Custom Consultation'}
+              </div>
               <div><strong className="text-cyan-300">Assigned Growth Strategist:</strong> Senior Healthcare AI Lead</div>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 w-full">
@@ -181,37 +208,88 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, on
                     <option value="UK">United Kingdom (🇬🇧)</option>
                     <option value="Canada">Canada (🇨🇦)</option>
                     <option value="Australia">Australia (🇦🇺)</option>
+                    <option value="Singapore">Singapore (🇸🇬)</option>
+                    <option value="Ireland">Ireland (🇮🇪)</option>
+                    <option value="Netherlands">Netherlands (🇳🇱)</option>
+                    <option value="Germany">Germany (🇩🇪)</option>
+                    <option value="New Zealand">New Zealand (🇳🇿)</option>
+                    <option value="Spain">Spain (🇪🇸)</option>
                     <option value="Other">Other Region</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-200 mb-1">Preferred Time</label>
+                  <label className="block text-xs font-semibold text-slate-200 mb-1">Has your practice done marketing before?</label>
                   <select
-                    value={formData.preferredTime}
-                    onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
+                    value={formData.marketingStatus}
+                    onChange={(e) => setFormData({ ...formData, marketingStatus: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-xl bg-[#0F1E4B] border border-white/15 focus:border-cyan-300 text-white text-xs focus:outline-none transition-all"
                   >
-                    <option value="Morning (9 AM - 12 PM)">Morning (9 AM - 12 PM)</option>
-                    <option value="Afternoon (12 PM - 4 PM)">Afternoon (12 PM - 4 PM)</option>
-                    <option value="Evening (4 PM - 8 PM)">Evening (4 PM - 8 PM)</option>
+                    <option value="No, haven't done marketing yet (Starting fresh)">No, haven't done marketing (Starting fresh)</option>
+                    <option value="Yes, currently running Paid Ads (Meta / Google Ads)">Yes, currently running Meta / Google Ads</option>
+                    <option value="Yes, active organic social media & reels only">Yes, organic social media & reels only</option>
+                    <option value="Yes, worked with agencies/freelancers before">Yes, worked with agency / freelancer before</option>
+                    <option value="Yes, have an active in-house marketing team">Yes, have an active in-house marketing team</option>
                   </select>
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-slate-200 mb-1">Primary Growth Goal</label>
-                <select
-                  value={formData.primaryGoal}
-                  onChange={(e) => setFormData({ ...formData, primaryGoal: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#0F1E4B] border border-white/15 focus:border-cyan-300 text-white text-xs focus:outline-none transition-all"
-                >
-                  <option value="24/7 AI Voice Receptionist">24/7 AI Voice Receptionist (Zero Missed Calls)</option>
-                  <option value="AI Clone Video & Social Authority">Doctor AI Video Clone + Social Content</option>
-                  <option value="Google My Business Top 3 Rank">Google My Business & Local 3-Pack Growth</option>
-                  <option value="Targeted Meta/Google Patient Ads">Targeted Patient Acquisition Ads</option>
-                  <option value="Full Comprehensive Agency Solution">Full-Stack Practice Transformation</option>
-                </select>
+              {/* Primary Growth Goals with "Tick All" Feature */}
+              <div className="pt-1">
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block text-xs font-semibold text-slate-200">
+                    Primary Growth Goals <span className="text-slate-400 font-normal">(Select all that apply)</span>
+                  </label>
+                  <button
+                    type="button"
+                    onClick={handleToggleAllGoals}
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold tracking-wide transition-all ${
+                      isAllSelected
+                        ? 'bg-cyan-400 text-slate-950 shadow-[0_0_12px_rgba(34,211,238,0.4)]'
+                        : 'bg-white/10 text-cyan-300 hover:bg-white/15 border border-cyan-400/30'
+                    }`}
+                  >
+                    {isAllSelected ? (
+                      <>
+                        <CheckSquare className="w-3.5 h-3.5 text-slate-950" />
+                        <span>All Selected (Full-Stack)</span>
+                      </>
+                    ) : (
+                      <>
+                        <Square className="w-3.5 h-3.5 text-cyan-300" />
+                        <span>Tick All</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {/* Growth Goal Chips / Checkboxes */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {GROWTH_GOAL_OPTIONS.map((goal) => {
+                    const isChecked = selectedGoals.includes(goal);
+                    return (
+                      <button
+                        type="button"
+                        key={goal}
+                        onClick={() => handleToggleGoal(goal)}
+                        className={`flex items-start gap-2 p-2.5 rounded-xl text-left text-xs transition-all border ${
+                          isChecked
+                            ? 'bg-cyan-400/15 border-cyan-400/60 text-white shadow-sm'
+                            : 'bg-[#0F1E4B]/70 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
+                        }`}
+                      >
+                        <div className="mt-0.5 shrink-0">
+                          {isChecked ? (
+                            <CheckCircle2 className="w-4 h-4 text-cyan-300 fill-cyan-950/50" />
+                          ) : (
+                            <div className="w-4 h-4 rounded-md border border-white/30 bg-white/5" />
+                          )}
+                        </div>
+                        <span className="leading-snug font-medium text-[11.5px]">{goal}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
               <div className="pt-2">

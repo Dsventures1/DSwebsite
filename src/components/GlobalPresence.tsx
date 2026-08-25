@@ -48,6 +48,54 @@ export const GlobalPresence: React.FC = () => {
       region: 'London, Manchester, Birmingham'
     },
     {
+      name: 'Singapore',
+      code: 'SG',
+      flag: '🇸🇬',
+      compliance: 'SMC & PDPA Healthcare Standards',
+      activePractices: '18+ Specialist Centers',
+      region: 'Orchard, Novena, Raffles Place'
+    },
+    {
+      name: 'Ireland & UK Europe',
+      code: 'IE',
+      flag: '🇮🇪',
+      compliance: 'GDPR & Medical Council of Ireland',
+      activePractices: '14+ Private Clinics',
+      region: 'Dublin, Cork, Galway'
+    },
+    {
+      name: 'Germany & EU',
+      code: 'DE',
+      flag: '🇩🇪',
+      compliance: 'EU GDPR & HWG Medical Advertising',
+      activePractices: '16+ Aesthetics & Dental',
+      region: 'Berlin, Munich, Frankfurt'
+    },
+    {
+      name: 'Netherlands',
+      code: 'NL',
+      flag: '🇳🇱',
+      compliance: 'BIG-Register & AVG Compliant',
+      activePractices: '12+ Specialty Practices',
+      region: 'Amsterdam, Rotterdam, Utrecht'
+    },
+    {
+      name: 'New Zealand',
+      code: 'NZ',
+      flag: '🇳🇿',
+      compliance: 'MCNZ & Privacy Act 2020',
+      activePractices: '10+ Private Practices',
+      region: 'Auckland, Wellington, Christchurch'
+    },
+    {
+      name: 'Spain',
+      code: 'ES',
+      flag: '🇪🇸',
+      compliance: 'AEPD & CGCOM Regulations',
+      activePractices: '15+ Medical & Aesthetic Clinics',
+      region: 'Madrid, Barcelona, Valencia'
+    },
+    {
       name: 'Canada',
       code: 'CA',
       flag: '🇨🇦',
@@ -78,8 +126,8 @@ export const GlobalPresence: React.FC = () => {
             <span>International Agency Credibility</span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight font-heading max-w-3xl">
-            Trusted by practices across <span className="text-cyan-300">India, UAE, USA, UK, Canada & Australia</span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight font-heading max-w-4xl">
+            Trusted by practices across <span className="text-cyan-300">India, UAE, USA, UK, Singapore, Europe & Beyond</span>
           </h2>
 
           <p className="text-sm text-slate-200 max-w-2xl mt-3 font-normal">

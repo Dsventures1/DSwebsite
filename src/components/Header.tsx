@@ -26,13 +26,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
   }, []);
 
   const navLinks = [
-    { name: 'About', href: '#about' },
+    { name: 'About Us', href: '#about' },
     { name: 'Services', href: '#services' },
     { name: 'Why Us', href: '#why-us' },
     { name: 'Results', href: '#results' },
     { name: 'Process', href: '#process' },
     { name: 'Global', href: '#global' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Contact Us', href: '#contact' },
   ];
 
   return (

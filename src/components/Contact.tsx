@@ -12,7 +12,9 @@ import {
   Building, 
   Globe, 
   MessageSquare,
-  ShieldCheck
+  ShieldCheck,
+  CheckSquare,
+  Square
 } from 'lucide-react';
 import { ConsultationFormData } from '../types';
 
@@ -24,7 +26,7 @@ export const Contact: React.FC = () => {
     practiceName: '',
     country: 'India',
     specialty: 'Dental / Aesthetics',
-    servicesInterested: ['AI Voice Agent', 'Social Media Ads'],
+    servicesInterested: ['AI Voice Agent for Clinics', 'Social Media Ads'],
     message: ''
   });
 
@@ -39,6 +41,16 @@ export const Contact: React.FC = () => {
     'Social Media Ads',
     'Website Development'
   ];
+
+  const isAllServicesSelected = formData.servicesInterested.length === availableServices.length;
+
+  const handleToggleAllServices = () => {
+    if (isAllServicesSelected) {
+      setFormData(prev => ({ ...prev, servicesInterested: [] }));
+    } else {
+      setFormData(prev => ({ ...prev, servicesInterested: [...availableServices] }));
+    }
+  };
 
   const handleToggleService = (service: string) => {
     setFormData(prev => {
@@ -288,6 +300,12 @@ export const Contact: React.FC = () => {
                         <option value="UK">United Kingdom (🇬🇧)</option>
                         <option value="Canada">Canada (🇨🇦)</option>
                         <option value="Australia">Australia (🇦🇺)</option>
+                        <option value="Singapore">Singapore (🇸🇬)</option>
+                        <option value="Ireland">Ireland (🇮🇪)</option>
+                        <option value="Netherlands">Netherlands (🇳🇱)</option>
+                        <option value="Germany">Germany (🇩🇪)</option>
+                        <option value="New Zealand">New Zealand (🇳🇿)</option>
+                        <option value="Spain">Spain (🇪🇸)</option>
                         <option value="Other">Other International Practice</option>
                       </select>
                     </div>
@@ -314,11 +332,34 @@ export const Contact: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Services Needed Selectors */}
+                  {/* Services Needed Selectors with Tick All */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-200 mb-1.5">
-                      Services You Want to Explore (Select all that apply)
-                    </label>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="block text-xs font-semibold text-slate-200">
+                        Services You Want to Explore <span className="text-slate-400 font-normal">(Select all that apply)</span>
+                      </label>
+                      <button
+                        type="button"
+                        onClick={handleToggleAllServices}
+                        className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-[11px] font-bold tracking-wide transition-all ${
+                          isAllServicesSelected
+                            ? 'bg-cyan-400 text-slate-950 shadow-[0_0_10px_rgba(34,211,238,0.4)]'
+                            : 'bg-white/10 text-cyan-300 hover:bg-white/15 border border-cyan-400/30'
+                        }`}
+                      >
+                        {isAllServicesSelected ? (
+                          <>
+                            <CheckSquare className="w-3 h-3 text-slate-950" />
+                            <span>All Selected</span>
+                          </>
+                        ) : (
+                          <>
+                            <Square className="w-3 h-3 text-cyan-300" />
+                            <span>Tick All</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
                     <div className="flex flex-wrap gap-2">
                       {availableServices.map((service) => {
                         const isSelected = formData.servicesInterested.includes(service);
