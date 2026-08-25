@@ -14,7 +14,7 @@ import { Footer } from './components/Footer';
 import { ConsultationModal } from './components/ConsultationModal';
 import { AdminDashboard } from './components/AdminDashboard';
 
-const SECRET_HASH = '05032000';
+const SECRET_HASH = 'russian';
 
 export default function App() {
   const [consultationModalOpen, setConsultationModalOpen] = useState(false);

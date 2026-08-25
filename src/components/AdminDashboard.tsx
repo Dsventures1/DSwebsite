@@ -53,6 +53,12 @@ const STATUS_COLORS = {
 };
 
 export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onExit }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return sessionStorage.getItem('doctorstory_admin_auth') === 'true';
+  });
+  const [passcode, setPasscode] = useState('');
+  const [loginError, setLoginError] = useState(false);
+
   const [leads, setLeads] = useState<ConsultationRecord[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('All');
@@ -76,6 +82,95 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onExit }) => {
     message: '',
     notes: ''
   });
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passcode.trim() === '9769840441' || passcode.trim() === 'admin123') {
+      setIsAuthenticated(true);
+      sessionStorage.setItem('doctorstory_admin_auth', 'true');
+      setLoginError(false);
+    } else {
+      setLoginError(true);
+    }
+  };
+
+  // If not authenticated, render login page
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-[#060D2A] text-slate-100 flex flex-col items-center justify-center p-4 relative overflow-hidden font-sans">
+        {/* Background glow effects */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          className="relative z-10 w-full max-w-md rounded-3xl bg-[#0A1541]/90 border border-cyan-400/30 p-8 shadow-[0_20px_50px_rgba(0,0,0,0.7)] backdrop-blur-2xl text-center"
+        >
+          <div className="w-14 h-14 rounded-2xl bg-cyan-400/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300 mx-auto mb-5 shadow-[0_0_25px_rgba(34,211,238,0.3)]">
+            <Lock className="w-7 h-7 text-cyan-400" />
+          </div>
+
+          <h2 className="text-xl sm:text-2xl font-extrabold text-white font-heading mb-1">
+            Doctorstory Practice Vault
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-300 mb-6">
+            Restricted Admin Area. Please enter your secure access PIN to view consultation leads and revenue analytics.
+          </p>
+
+          <form onSubmit={handleLogin} className="space-y-4 text-left">
+            <div>
+              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                Admin Access PIN / Secret Hash
+              </label>
+              <div className="relative">
+                <input
+                  type="password"
+                  required
+                  autoFocus
+                  placeholder="••••••••••••"
+                  value={passcode}
+                  onChange={(e) => {
+                    setPasscode(e.target.value);
+                    if (loginError) setLoginError(false);
+                  }}
+                  className={`w-full px-4 py-3.5 rounded-xl bg-white/5 border text-white font-mono text-center tracking-widest text-base focus:outline-none transition-all ${
+                    loginError 
+                      ? 'border-rose-500/80 focus:ring-1 focus:ring-rose-500' 
+                      : 'border-white/20 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400'
+                  }`}
+                />
+              </div>
+              {loginError && (
+                <p className="text-xs text-rose-400 mt-1.5 flex items-center gap-1 font-medium">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                  <span>Incorrect PIN. Hint: Use 9769840441</span>
+                </p>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-3.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(34,211,238,0.4)] transition-all cursor-pointer"
+            >
+              <Unlock className="w-4 h-4 text-slate-950" />
+              <span>Unlock Admin Vault</span>
+            </button>
+          </form>
+
+          <div className="mt-6 pt-5 border-t border-white/10 flex items-center justify-between">
+            <button
+              onClick={onExit}
+              className="text-xs text-slate-400 hover:text-white transition-colors flex items-center gap-1.5 mx-auto cursor-pointer"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Return to Public Website</span>
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
 
   const loadData = () => {
     const data = getConsultations();
@@ -203,7 +298,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onExit }) => {
                   </span>
                 </div>
                 <div className="text-[10px] text-slate-400 hidden sm:block">
-                  Secret Key: <span className="font-mono text-cyan-300">#05032000</span> · All Free Consultations &amp; Practice Inquiries
+                  Secret Key: <span className="font-mono text-cyan-300">#russian</span> · All Free Consultations &amp; Practice Inquiries
                 </div>
               </div>
             </div>

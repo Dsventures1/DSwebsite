@@ -177,7 +177,7 @@ export const Footer: React.FC = () => {
 
           <div className="flex items-center gap-6">
             <a
-              href="#05032000"
+              href="#russian"
               className="flex items-center gap-1.5 text-slate-400 hover:text-cyan-300 transition-colors"
               title="Doctorstory Practice Vault"
             >
