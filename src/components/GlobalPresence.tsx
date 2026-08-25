@@ -20,7 +20,7 @@ export const GlobalPresence: React.FC = () => {
       code: 'IN',
       flag: '🇮🇳',
       compliance: 'NABH & NMC Compliant',
-      activePractices: '120+ Doctors & Clinics',
+      activePractices: '17 Doctors & Clinics',
       region: 'Delhi, Mumbai, Bengaluru, Hyderabad'
     },
     {
@@ -28,7 +28,7 @@ export const GlobalPresence: React.FC = () => {
       code: 'AE',
       flag: '🇦🇪',
       compliance: 'DHA, DOH & MOH Guidelines',
-      activePractices: '35+ Specialty Centers',
+      activePractices: '7+ Specialty Centers',
       region: 'Dubai, Abu Dhabi, Sharjah'
     },
     {
@@ -36,7 +36,7 @@ export const GlobalPresence: React.FC = () => {
       code: 'US',
       flag: '🇺🇸',
       compliance: 'HIPAA & TCPA Compliant AI',
-      activePractices: '45+ Private Practices',
+      activePractices: '6 Private Practices',
       region: 'CA, NY, TX, FL'
     },
     {
@@ -44,7 +44,7 @@ export const GlobalPresence: React.FC = () => {
       code: 'GB',
       flag: '🇬🇧',
       compliance: 'GMC & NHS Digital Standards',
-      activePractices: '28+ Private Clinics',
+      activePractices: '11 Private Clinics',
       region: 'London, Manchester, Birmingham'
     },
     {
@@ -52,7 +52,7 @@ export const GlobalPresence: React.FC = () => {
       code: 'SG',
       flag: '🇸🇬',
       compliance: 'SMC & PDPA Healthcare Standards',
-      activePractices: '18+ Specialist Centers',
+      activePractices: '2 Specialist Centers',
       region: 'Orchard, Novena, Raffles Place'
     },
     {
@@ -60,7 +60,7 @@ export const GlobalPresence: React.FC = () => {
       code: 'IE',
       flag: '🇮🇪',
       compliance: 'GDPR & Medical Council of Ireland',
-      activePractices: '14+ Private Clinics',
+      activePractices: '4 Private Clinics',
       region: 'Dublin, Cork, Galway'
     },
     {
@@ -68,7 +68,7 @@ export const GlobalPresence: React.FC = () => {
       code: 'DE',
       flag: '🇩🇪',
       compliance: 'EU GDPR & HWG Medical Advertising',
-      activePractices: '16+ Aesthetics & Dental',
+      activePractices: '5 Aesthetics & Dental',
       region: 'Berlin, Munich, Frankfurt'
     },
     {
@@ -84,7 +84,7 @@ export const GlobalPresence: React.FC = () => {
       code: 'NZ',
       flag: '🇳🇿',
       compliance: 'MCNZ & Privacy Act 2020',
-      activePractices: '10+ Private Practices',
+      activePractices: '1 Private Practices',
       region: 'Auckland, Wellington, Christchurch'
     },
     {
@@ -92,7 +92,7 @@ export const GlobalPresence: React.FC = () => {
       code: 'ES',
       flag: '🇪🇸',
       compliance: 'AEPD & CGCOM Regulations',
-      activePractices: '15+ Medical & Aesthetic Clinics',
+      activePractices: '3 Medical & Aesthetic Clinics',
       region: 'Madrid, Barcelona, Valencia'
     },
     {
@@ -100,7 +100,7 @@ export const GlobalPresence: React.FC = () => {
       code: 'CA',
       flag: '🇨🇦',
       compliance: 'PIPEDA & Provincial Standards',
-      activePractices: '20+ Medical Groups',
+      activePractices: '2 Medical Groups',
       region: 'Toronto, Vancouver, Montreal'
     },
     {
@@ -108,7 +108,7 @@ export const GlobalPresence: React.FC = () => {
       code: 'AU',
       flag: '🇦🇺',
       compliance: 'AHPRA Advertising Standards',
-      activePractices: '25+ Aesthetic & Dental Practices',
+      activePractices: '2 Aesthetic & Dental Practices',
       region: 'Sydney, Melbourne, Brisbane'
     }
   ];
