@@ -61,10 +61,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
   ];
 
   const rotatingTrustItems = [
-    { text: "24/7 AI Receptionists for Clinics", icon: Bot },
+    { text: "24/7 AI Receptionists for Clinics & Hospitals", icon: Bot },
     { text: "Global Clients: India · UAE · USA · UK · Canada · Australia", icon: Globe2 },
-    { text: "Healthcare-Focused Since Day One", icon: ShieldCheck },
-    { text: "Over 85,000+ Automated Patient Bookings", icon: Activity }
+    { text: "Healthcare-Focused Since Day One", icon: ShieldCheck }
   ];
 
   return (
@@ -241,7 +240,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
       {/* Rotating Badge & Stat Strip Below the Fold */}
       <div className="w-full mt-12 pt-6 border-y border-white/15 bg-white/[0.05] backdrop-blur-xl shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 py-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-3">
             {rotatingTrustItems.map((item, index) => {
               const ItemIcon = item.icon;
               return (
