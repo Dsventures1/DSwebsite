@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   Phone, 
   Mail, 
@@ -17,6 +17,23 @@ import {
   Square
 } from 'lucide-react';
 import { ConsultationFormData } from '../types';
+import { CustomSelect } from './ui/CustomSelect';
+
+const COUNTRY_OPTIONS = [
+  { value: 'India', label: 'India (🇮🇳)' },
+  { value: 'UAE', label: 'United Arab Emirates (🇦🇪)' },
+  { value: 'USA', label: 'United States (🇺🇸)' },
+  { value: 'UK', label: 'United Kingdom (🇬🇧)' },
+  { value: 'Canada', label: 'Canada (🇨🇦)' },
+  { value: 'Australia', label: 'Australia (🇦🇺)' },
+  { value: 'Singapore', label: 'Singapore (🇸🇬)' },
+  { value: 'Ireland', label: 'Ireland (🇮🇪)' },
+  { value: 'Netherlands', label: 'Netherlands (🇳🇱)' },
+  { value: 'Germany', label: 'Germany (🇩🇪)' },
+  { value: 'New Zealand', label: 'New Zealand (🇳🇿)' },
+  { value: 'Spain', label: 'Spain (🇪🇸)' },
+  { value: 'Other', label: 'Other International Practice' }
+];
 
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState<ConsultationFormData>({
@@ -25,13 +42,39 @@ export const Contact: React.FC = () => {
     phone: '',
     practiceName: '',
     country: 'India',
-    specialty: 'Dental / Aesthetics',
+    customCountry: '',
+    specialty: 'Dental & Orthodontics / Implantology',
+    customSpecialty: '',
     servicesInterested: ['AI Voice Agent for Clinics', 'Social Media Ads'],
     message: ''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const availableSpecialties = [
+    'Dental & Orthodontics / Implantology',
+    'Dermatology, Cosmetology & Trichology',
+    'Plastic, Aesthetic & Cosmetic Surgery',
+    'Hair Transplant & Scalp Aesthetics',
+    'Orthopedics, Spine & Joint Replacement',
+    'Gynecology, Obstetrics & IVF / Fertility',
+    'Ophthalmology, Lasik & Eye Care',
+    'Cardiology & Vascular Medicine',
+    'Pediatrics, Neonatology & Child Care',
+    'ENT (Ear, Nose, Throat) & Head-Neck',
+    'Neurology & Neurosurgery',
+    'Urology, Andrology & Nephrology',
+    'Psychiatry & Mental Health',
+    'Gastroenterology & Hepatology',
+    'Oncology & Cancer Care',
+    'Endocrinology & Diabetology',
+    'Pulmonology & Respiratory Care',
+    'Physiotherapy, Rehab & Sports Medicine',
+    'General & Laparoscopic Surgery',
+    'Multi-Specialty Hospital / Daycare Center',
+    'Other Clinical Specialty'
+  ];
 
   const availableServices = [
     'AI Voice Agent for Clinics',
@@ -202,7 +245,7 @@ export const Contact: React.FC = () => {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3">
                     <a
-                      href={`https://wa.me/918104468397?text=Hi%20Doctorstory%20Team%2C%20I%20just%20submitted%20a%20consultation%20request%20for%20my%20practice%20(${encodeURIComponent(formData.practiceName || formData.fullName)})`}
+                      href={`https://wa.me/918104468397?text=Hi%20Doctorstory%20Team%2C%20I%20just%20submitted%20a%20consultation%20request%20for%20${encodeURIComponent(formData.practiceName || formData.fullName)}%20(${encodeURIComponent(formData.specialty === 'Other Clinical Specialty' ? formData.customSpecialty || 'Clinical Specialty' : formData.specialty)}%20in%20${encodeURIComponent(formData.country === 'Other' ? formData.customCountry || 'International' : formData.country)})`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-6 py-3 rounded-full bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg"
@@ -284,53 +327,86 @@ export const Contact: React.FC = () => {
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {/* Country */}
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-200 mb-1.5">
-                        Practice Location / Country <span className="text-cyan-300">*</span>
-                      </label>
-                      <select
-                        value={formData.country}
-                        onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-xl bg-[#0F1E4B] border border-white/15 focus:border-cyan-300 text-white text-sm focus:outline-none focus:ring-1 focus:ring-cyan-300 transition-all"
-                      >
-                        <option value="India">India (🇮🇳)</option>
-                        <option value="UAE">United Arab Emirates (🇦🇪)</option>
-                        <option value="USA">United States (🇺🇸)</option>
-                        <option value="UK">United Kingdom (🇬🇧)</option>
-                        <option value="Canada">Canada (🇨🇦)</option>
-                        <option value="Australia">Australia (🇦🇺)</option>
-                        <option value="Singapore">Singapore (🇸🇬)</option>
-                        <option value="Ireland">Ireland (🇮🇪)</option>
-                        <option value="Netherlands">Netherlands (🇳🇱)</option>
-                        <option value="Germany">Germany (🇩🇪)</option>
-                        <option value="New Zealand">New Zealand (🇳🇿)</option>
-                        <option value="Spain">Spain (🇪🇸)</option>
-                        <option value="Other">Other International Practice</option>
-                      </select>
-                    </div>
+                    <CustomSelect
+                      label="Practice Location / Country"
+                      required
+                      value={formData.country}
+                      onChange={(val) => setFormData({ ...formData, country: val })}
+                      options={COUNTRY_OPTIONS}
+                      icon={<Globe className="w-3.5 h-3.5" />}
+                      enableSearch={false}
+                    />
 
-                    {/* Specialty */}
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-200 mb-1.5">
-                        Primary Specialty
-                      </label>
-                      <select
-                        value={formData.specialty}
-                        onChange={(e) => setFormData({ ...formData, specialty: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-xl bg-[#0F1E4B] border border-white/15 focus:border-cyan-300 text-white text-sm focus:outline-none focus:ring-1 focus:ring-cyan-300 transition-all"
-                      >
-                        <option value="Dental / Aesthetics">Dental & Aesthetics</option>
-                        <option value="Dermatology / Cosmetology">Dermatology & Cosmetology</option>
-                        <option value="Orthopedics / Sports">Orthopedics & Spine</option>
-                        <option value="Gynecology / IVF">Gynecology & IVF</option>
-                        <option value="Cardiology / Internal Medicine">Cardiology & Internal Medicine</option>
-                        <option value="Ophthalmology / Eye Clinic">Ophthalmology</option>
-                        <option value="Multi-Specialty Hospital">Multi-Specialty Hospital</option>
-                        <option value="Other">Other Clinical Specialty</option>
-                      </select>
-                    </div>
+                    <CustomSelect
+                      label="Primary Specialty"
+                      value={formData.specialty}
+                      onChange={(val) => setFormData({ ...formData, specialty: val })}
+                      options={availableSpecialties}
+                      icon={<Building className="w-3.5 h-3.5" />}
+                      enableSearch={true}
+                      searchPlaceholder="Filter specialty..."
+                    />
                   </div>
+
+                  {/* Conditional Custom Country Input if 'Other' is selected */}
+                  <AnimatePresence>
+                    {formData.country === 'Other' && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0, y: -6 }}
+                        animate={{ opacity: 1, height: 'auto', y: 0 }}
+                        exit={{ opacity: 0, height: 0, y: -6 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                      >
+                        <label className="block text-xs font-semibold text-cyan-300 mb-1.5">
+                          Specify Your Country / Location <span className="text-cyan-300">*</span>
+                        </label>
+                        <div className="relative">
+                          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                            <Globe className="w-4 h-4 text-cyan-400" />
+                          </div>
+                          <input
+                            type="text"
+                            required
+                            placeholder="Enter your country name (e.g. South Africa, France, Saudi Arabia)"
+                            value={formData.customCountry}
+                            onChange={(e) => setFormData({ ...formData, customCountry: e.target.value })}
+                            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#0F1E4B] border border-cyan-400/50 focus:border-cyan-300 focus:bg-[#0d1f47] text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-1 focus:ring-cyan-300 backdrop-blur-md transition-all shadow-[0_0_12px_rgba(34,211,238,0.15)]"
+                          />
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Conditional Custom Specialty Input if 'Other Clinical Specialty' is selected */}
+                  <AnimatePresence>
+                    {formData.specialty === 'Other Clinical Specialty' && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0, y: -6 }}
+                        animate={{ opacity: 1, height: 'auto', y: 0 }}
+                        exit={{ opacity: 0, height: 0, y: -6 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                      >
+                        <label className="block text-xs font-semibold text-cyan-300 mb-1.5">
+                          Specify Your Clinical Specialty <span className="text-cyan-300">*</span>
+                        </label>
+                        <div className="relative">
+                          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                            <Building className="w-4 h-4 text-cyan-400" />
+                          </div>
+                          <input
+                            type="text"
+                            required
+                            placeholder="e.g. Pediatric Orthopedics, Aesthetic Endocrinology"
+                            value={formData.customSpecialty}
+                            onChange={(e) => setFormData({ ...formData, customSpecialty: e.target.value })}
+                            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#0F1E4B] border border-cyan-400/50 focus:border-cyan-300 focus:bg-[#0d1f47] text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-1 focus:ring-cyan-300 backdrop-blur-md transition-all shadow-[0_0_12px_rgba(34,211,238,0.15)]"
+                          />
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
                   {/* Services Needed Selectors with Tick All */}
                   <div>

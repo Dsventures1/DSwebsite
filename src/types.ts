@@ -15,7 +15,9 @@ export interface ConsultationFormData {
   phone: string;
   practiceName: string;
   country: string;
+  customCountry?: string;
   specialty: string;
+  customSpecialty?: string;
   servicesInterested: string[];
   message: string;
 }

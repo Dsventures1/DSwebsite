@@ -54,7 +54,7 @@ export const Footer: React.FC = () => {
             </a>
 
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-sm">
-              Global AI automation and digital marketing agency built exclusively for doctors, clinics, and hospitals. Automating reception busywork while scaling clinical authority worldwide.
+              Global AI automation and digital marketing agency built exclusively for doctors, clinics, hospitals, and diagnostic centres. Automating reception busywork while scaling clinical authority worldwide.
             </p>
 
             {/* Social Icons */}

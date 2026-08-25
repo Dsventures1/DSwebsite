@@ -1,6 +1,6 @@
 {
   "name": "Doctorstory.in — AI Automation & Healthcare Marketing",
-  "description": "Premium AI automation and digital marketing agency for doctors, clinics, and hospitals worldwide.",
+  "description": "Premium AI automation and digital marketing agency for doctors, clinics, hospitals, and diagnostic centres worldwide.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

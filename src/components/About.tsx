@@ -71,7 +71,7 @@ export const About: React.FC = () => {
               </div>
               
               <p className="text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-                Doctorstory.in is where medicine meets modern marketing. We help doctors and clinics build a powerful personal brand while automating the busywork that slows practices down. From AI voice agents that never miss a patient call to AI clone avatars that scale your presence across every platform, we combine healthcare expertise with cutting-edge technology. Our mission is simple: give doctors the online authority they deserve, and the systems to support it — 24/7.
+                Doctorstory.in is where medicine meets modern marketing. We help doctors, clinics, hospitals, and diagnostic centres build powerful personal branding and attract patients while automating the busywork that slows healthcare practices down. From AI voice agents that never miss a patient inquiry to AI clone avatars that scale your presence across every platform, we combine healthcare expertise with cutting-edge technology. Our mission is simple: give clinical leaders the online authority they deserve, and the systems to support it — 24/7.
               </p>
             </div>
 
