@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NetworkBackground } from './components/NetworkBackground';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -12,9 +12,28 @@ import { PracticeCalculator } from './components/PracticeCalculator';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { ConsultationModal } from './components/ConsultationModal';
+import { AdminDashboard } from './components/AdminDashboard';
+
+const SECRET_HASH = '05032000';
 
 export default function App() {
   const [consultationModalOpen, setConsultationModalOpen] = useState(false);
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
+
+  useEffect(() => {
+    const checkHash = () => {
+      const hash = window.location.hash.replace(/^#\/?/, '').trim();
+      if (hash === SECRET_HASH || hash === `admin-${SECRET_HASH}`) {
+        setIsAdminOpen(true);
+      } else if (isAdminOpen && !hash) {
+        setIsAdminOpen(false);
+      }
+    };
+
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
+    return () => window.removeEventListener('hashchange', checkHash);
+  }, [isAdminOpen]);
 
   const handleOpenConsultation = () => {
     setConsultationModalOpen(true);
@@ -23,6 +42,15 @@ export default function App() {
   const handleCloseConsultation = () => {
     setConsultationModalOpen(false);
   };
+
+  const handleExitAdmin = () => {
+    setIsAdminOpen(false);
+    window.location.hash = '';
+  };
+
+  if (isAdminOpen) {
+    return <AdminDashboard onExit={handleExitAdmin} />;
+  }
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-[#0A1541] via-[#102263] to-[#1E3A8A] text-slate-100 selection:bg-cyan-400 selection:text-slate-950 flex flex-col font-sans overflow-x-hidden">

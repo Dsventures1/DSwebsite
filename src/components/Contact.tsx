@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { ConsultationFormData } from '../types';
 import { CustomSelect } from './ui/CustomSelect';
+import { saveConsultation } from '../lib/consultations';
 
 const COUNTRY_OPTIONS = [
   { value: 'India', label: 'India (🇮🇳)' },
@@ -115,6 +116,25 @@ export const Contact: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    try {
+      saveConsultation({
+        name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        practice: formData.practiceName,
+        country: formData.country,
+        customCountry: formData.customCountry,
+        specialty: formData.specialty,
+        customSpecialty: formData.customSpecialty,
+        goalsOrServices: formData.servicesInterested,
+        message: formData.message,
+        source: 'Page Contact Section',
+        status: 'New'
+      });
+    } catch (err) {
+      console.error('Failed to save consultation lead:', err);
+    }
 
     // Simulate reliable form processing
     setTimeout(() => {

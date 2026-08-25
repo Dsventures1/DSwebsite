@@ -7,10 +7,11 @@ import {
   Globe2, 
   ShieldCheck, 
   ArrowUp,
+  Facebook,
   Instagram,
+  Twitter,
   Linkedin,
   Youtube,
-  Twitter,
   MessageCircle
 } from 'lucide-react';
 
@@ -57,32 +58,45 @@ export const Footer: React.FC = () => {
               Global AI automation and digital marketing agency built exclusively for doctors, clinics, hospitals, and diagnostic centres. Automating reception busywork while scaling clinical authority worldwide.
             </p>
 
-            {/* Social Icons */}
-            <div className="flex items-center gap-3 pt-2">
+            {/* Social Icons (Facebook, Instagram, Twitter, LinkedIn, YouTube, WhatsApp) */}
+            <div className="flex items-center gap-2.5 pt-2">
               <a
-                href="https://wa.me/918104468397"
+                href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-cyan-300 hover:bg-cyan-400 hover:text-slate-950 transition-all backdrop-blur-md shadow-sm"
-                title="WhatsApp"
+                className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-cyan-300 hover:bg-cyan-400 hover:text-slate-950 transition-all backdrop-blur-md shadow-sm cursor-pointer"
+                title="Facebook"
+                aria-label="Facebook"
               >
-                <MessageCircle className="w-4 h-4" />
+                <Facebook className="w-4 h-4" />
               </a>
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-cyan-300 hover:bg-cyan-400 hover:text-slate-950 transition-all backdrop-blur-md shadow-sm"
+                className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-cyan-300 hover:bg-cyan-400 hover:text-slate-950 transition-all backdrop-blur-md shadow-sm cursor-pointer"
                 title="Instagram"
+                aria-label="Instagram"
               >
                 <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-cyan-300 hover:bg-cyan-400 hover:text-slate-950 transition-all backdrop-blur-md shadow-sm cursor-pointer"
+                title="Twitter / X"
+                aria-label="Twitter / X"
+              >
+                <Twitter className="w-4 h-4" />
               </a>
               <a
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-cyan-300 hover:bg-cyan-400 hover:text-slate-950 transition-all backdrop-blur-md shadow-sm"
+                className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-cyan-300 hover:bg-cyan-400 hover:text-slate-950 transition-all backdrop-blur-md shadow-sm cursor-pointer"
                 title="LinkedIn"
+                aria-label="LinkedIn"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
@@ -90,19 +104,21 @@ export const Footer: React.FC = () => {
                 href="https://youtube.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-cyan-300 hover:bg-cyan-400 hover:text-slate-950 transition-all backdrop-blur-md shadow-sm"
+                className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-cyan-300 hover:bg-cyan-400 hover:text-slate-950 transition-all backdrop-blur-md shadow-sm cursor-pointer"
                 title="YouTube"
+                aria-label="YouTube"
               >
                 <Youtube className="w-4 h-4" />
               </a>
               <a
-                href="https://twitter.com"
+                href="https://wa.me/918104468397"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-cyan-300 hover:bg-cyan-400 hover:text-slate-950 transition-all backdrop-blur-md shadow-sm"
-                title="X / Twitter"
+                className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-cyan-300 hover:bg-cyan-400 hover:text-slate-950 transition-all backdrop-blur-md shadow-sm cursor-pointer"
+                title="WhatsApp"
+                aria-label="WhatsApp"
               >
-                <Twitter className="w-4 h-4" />
+                <MessageCircle className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -160,13 +176,17 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-6">
-            <span className="flex items-center gap-1 text-slate-300">
+            <a
+              href="#05032000"
+              className="flex items-center gap-1.5 text-slate-400 hover:text-cyan-300 transition-colors"
+              title="Doctorstory Practice Vault"
+            >
               <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
-              Medical Advertising Compliant
-            </span>
+              <span>Medical Advertising Compliant</span>
+            </a>
             <button
               onClick={scrollToTop}
-              className="p-2.5 rounded-xl bg-white/10 border border-white/20 hover:border-cyan-400 text-slate-200 hover:text-cyan-300 backdrop-blur-md transition-colors"
+              className="p-2.5 rounded-xl bg-white/10 border border-white/20 hover:border-cyan-400 text-slate-200 hover:text-cyan-300 backdrop-blur-md transition-colors cursor-pointer"
               title="Back to Top"
             >
               <ArrowUp className="w-4 h-4" />

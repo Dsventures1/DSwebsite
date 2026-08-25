@@ -20,6 +20,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { CustomSelect } from './ui/CustomSelect';
+import { saveConsultation } from '../lib/consultations';
 
 interface ConsultationModalProps {
   isOpen: boolean;
@@ -132,6 +133,27 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, on
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    try {
+      saveConsultation({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        practice: formData.practice,
+        country: formData.country,
+        customCountry: formData.customCountry,
+        specialty: formData.specialty,
+        customSpecialty: formData.customSpecialty,
+        marketingStatus: formData.marketingStatus,
+        goalsOrServices: selectedGoals.length === GROWTH_GOAL_OPTIONS.length
+          ? ['All Growth Services (Full Stack)']
+          : selectedGoals,
+        source: 'Header / Modal Booking',
+        status: 'New'
+      });
+    } catch (err) {
+      console.error('Failed to save consultation:', err);
+    }
 
     setTimeout(() => {
       setIsSubmitting(false);
