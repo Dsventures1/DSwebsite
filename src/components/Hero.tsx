@@ -127,10 +127,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
             <div className="grid grid-cols-3 gap-4 sm:gap-6 pt-5 sm:pt-6 border-t border-white/15 w-full max-w-lg">
               <div>
                 <div className="text-2xl sm:text-3xl font-extrabold text-white font-heading">24/7</div>
-                <div className="text-[11px] sm:text-xs text-slate-300 mt-0.5 font-medium">AI Patient Reception</div>
+                <div className="text-[11px] sm:text-xs text-slate-300 mt-0.5 font-medium">AI Patient Receptionist</div>
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-cyan-300 font-heading">6+</div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-cyan-300 font-heading">10+</div>
                 <div className="text-[11px] sm:text-xs text-slate-300 mt-0.5 font-medium">Global Countries</div>
               </div>
               <div>

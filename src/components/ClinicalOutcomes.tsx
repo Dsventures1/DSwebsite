@@ -114,10 +114,10 @@ export const ClinicalOutcomes: React.FC<ClinicalOutcomesProps> = ({ onOpenConsul
       sublabel: 'Zero unanswered inquiries'
     },
     {
-      value: '6+',
+      value: '10+',
       label: 'International Countries Active',
       color: 'text-cyan-300',
-      sublabel: 'India, UAE, UK, US, CA, AU'
+      sublabel: 'India, UAE, UK, US, CA, AU, EU+'
     },
     {
       value: '<400ms',
