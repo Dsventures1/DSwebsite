@@ -1,22 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'motion/react';
 import { 
-  ShieldCheck, 
   Cpu, 
   Layers, 
   TrendingUp, 
   Sparkles, 
   Check, 
   X, 
-  HelpCircle,
   Stethoscope,
-  Clock,
   Award
 } from 'lucide-react';
 
 export const WhyUs: React.FC = () => {
-  const [showComparison, setShowComparison] = useState(false);
-
   const whyChoosePillars = [
     {
       number: '01',
@@ -157,58 +152,115 @@ export const WhyUs: React.FC = () => {
           })}
         </div>
 
-        {/* Toggleable Comparison Section */}
-        <div className="mt-8 text-center">
-          <button
-            onClick={() => setShowComparison(!showComparison)}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 border border-white/25 text-xs font-bold text-white backdrop-blur-xl transition-all shadow-md hover:border-cyan-300"
-          >
-            <Award className="w-4 h-4 text-cyan-400" />
-            <span>{showComparison ? 'Hide Agency Comparison Table' : 'Compare Doctorstory vs Traditional Agencies & Freelancers'}</span>
-          </button>
+        {/* Always Visible Comparison Section */}
+        <div className="mt-14 sm:mt-20">
+          <div className="text-center mb-8 px-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-400/10 border border-cyan-400/25 text-cyan-300 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider mb-2.5 backdrop-blur-md">
+              <Award className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Full Capability Matrix</span>
+            </div>
+            <h3 className="text-xl sm:text-3xl font-extrabold text-white font-heading">
+              Our Agency vs Other Traditional Agencies
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-200 max-w-xl mx-auto mt-2 leading-relaxed">
+              See why leading healthcare practices and doctors choose an AI-native specialized partner over generic agencies and freelancers.
+            </p>
+          </div>
 
-          {showComparison && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="mt-8 overflow-x-auto rounded-2xl border border-white/20 bg-white/[0.08] backdrop-blur-2xl p-4 sm:p-6 text-left shadow-[0_20px_50px_rgba(0,0,0,0.5)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]"
-            >
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="border-b border-white/15 text-xs font-bold uppercase tracking-wider text-slate-300">
-                    <th className="py-3.5 px-4">Capability & Scope</th>
-                    <th className="py-3.5 px-4 text-cyan-300 bg-white/10 rounded-t-xl border border-white/10">Doctorstory.in</th>
-                    <th className="py-3.5 px-4">Traditional Agency</th>
-                    <th className="py-3.5 px-4">Generic Freelancers</th>
+          {/* Desktop Table View (md and up) */}
+          <div className="hidden md:block overflow-hidden rounded-2xl border border-white/20 bg-white/[0.08] backdrop-blur-2xl p-6 text-left shadow-[0_20px_50px_rgba(0,0,0,0.5)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-white/15 text-xs font-bold uppercase tracking-wider text-slate-300">
+                  <th className="py-3.5 px-4">Capability &amp; Scope</th>
+                  <th className="py-3.5 px-4 text-cyan-300 bg-white/10 rounded-t-xl border border-white/10">Doctorstory.in</th>
+                  <th className="py-3.5 px-4">Traditional Agency</th>
+                  <th className="py-3.5 px-4">Generic Freelancers</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/10 text-xs sm:text-sm">
+                {comparisonData.map((row, idx) => (
+                  <tr key={idx} className="hover:bg-white/[0.04] transition-colors">
+                    <td className="py-3.5 px-4 font-medium text-slate-100">{row.feature}</td>
+                    <td className="py-3.5 px-4 bg-white/[0.06] text-cyan-300 font-semibold border-x border-white/10">
+                      <div className="flex items-center gap-1.5">
+                        <Check className="w-4 h-4 text-cyan-400" />
+                        <span>Included / AI Native</span>
+                      </div>
+                    </td>
+                    <td className="py-3.5 px-4 text-slate-300">
+                      {typeof row.traditional === 'boolean' ? (
+                        row.traditional ? <Check className="w-4 h-4 text-slate-200" /> : <X className="w-4 h-4 text-rose-400" />
+                      ) : (
+                        <span>{row.traditional}</span>
+                      )}
+                    </td>
+                    <td className="py-3.5 px-4 text-slate-300">
+                      <X className="w-4 h-4 text-rose-400" />
+                    </td>
                   </tr>
-                </thead>
-                <tbody className="divide-y divide-white/10 text-xs sm:text-sm">
-                  {comparisonData.map((row, idx) => (
-                    <tr key={idx} className="hover:bg-white/[0.04] transition-colors">
-                      <td className="py-3.5 px-4 font-medium text-slate-100">{row.feature}</td>
-                      <td className="py-3.5 px-4 bg-white/[0.06] text-cyan-300 font-semibold border-x border-white/10">
-                        <div className="flex items-center gap-1.5">
-                          <Check className="w-4 h-4 text-cyan-400" />
-                          <span>Included / AI Native</span>
-                        </div>
-                      </td>
-                      <td className="py-3.5 px-4 text-slate-300">
-                        {typeof row.traditional === 'boolean' ? (
-                          row.traditional ? <Check className="w-4 h-4 text-slate-200" /> : <X className="w-4 h-4 text-rose-400" />
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile Optimized Card Layout (sm and down) */}
+          <div className="md:hidden space-y-3.5">
+            {comparisonData.map((row, idx) => (
+              <div 
+                key={idx}
+                className="rounded-2xl border border-white/15 bg-white/[0.06] backdrop-blur-xl p-4 shadow-lg text-left"
+              >
+                {/* Feature Title */}
+                <h4 className="text-sm font-bold text-white mb-3 flex items-start gap-2 leading-snug">
+                  <span className="text-cyan-400 font-mono text-xs mt-0.5 font-bold">0{idx + 1}.</span>
+                  <span>{row.feature}</span>
+                </h4>
+
+                {/* Doctorstory Highlight Row */}
+                <div className="p-3 rounded-xl bg-cyan-950/40 border border-cyan-400/30 flex items-center justify-between gap-2 mb-2.5 shadow-sm">
+                  <span className="text-xs font-extrabold text-cyan-300 uppercase tracking-wide">
+                    Doctorstory.in
+                  </span>
+                  <div className="inline-flex items-center gap-1 text-xs font-bold text-cyan-300 bg-cyan-400/20 px-2.5 py-1 rounded-full border border-cyan-400/30">
+                    <Check className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>AI Native</span>
+                  </div>
+                </div>
+
+                {/* Competitors Breakdown */}
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  {/* Traditional Agency */}
+                  <div className="p-2.5 rounded-lg bg-white/[0.03] border border-white/10 flex flex-col justify-between">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 mb-1">Traditional</span>
+                    <div className="text-slate-300 font-medium">
+                      {typeof row.traditional === 'boolean' ? (
+                        row.traditional ? (
+                          <span className="inline-flex items-center gap-1 text-slate-200">
+                            <Check className="w-3.5 h-3.5 text-slate-300" /> Yes
+                          </span>
                         ) : (
-                          <span>{row.traditional}</span>
-                        )}
-                      </td>
-                      <td className="py-3.5 px-4 text-slate-300">
-                        <X className="w-4 h-4 text-rose-400" />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </motion.div>
-          )}
+                          <span className="inline-flex items-center gap-1 text-rose-400 font-semibold">
+                            <X className="w-3.5 h-3.5" /> No
+                          </span>
+                        )
+                      ) : (
+                        <span className="text-[11px] leading-tight text-slate-300">{row.traditional}</span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Generic Freelancers */}
+                  <div className="p-2.5 rounded-lg bg-white/[0.03] border border-white/10 flex flex-col justify-between">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 mb-1">Freelancers</span>
+                    <div className="text-rose-400 font-semibold inline-flex items-center gap-1 text-xs">
+                      <X className="w-3.5 h-3.5" /> No
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
